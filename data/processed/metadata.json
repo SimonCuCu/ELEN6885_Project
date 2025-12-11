@@ -1,0 +1,33 @@
+{
+  "num_users": 6040,
+  "num_movies": 3883,
+  "num_zipcode_buckets": 679,
+  "max_movie_id": 3952,
+  "min_interactions": 20,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "train": {
+    "count": 6040,
+    "avg_length": 115.45993377483444,
+    "min_length": 14,
+    "max_length": 1619,
+    "median_length": 67.0,
+    "total_interactions": 697378
+  },
+  "val": {
+    "count": 6040,
+    "avg_length": 24.823013245033113,
+    "min_length": 3,
+    "max_length": 347,
+    "median_length": 14.0,
+    "total_interactions": 149931
+  },
+  "test": {
+    "count": 6040,
+    "avg_length": 25.314569536423843,
+    "min_length": 3,
+    "max_length": 348,
+    "median_length": 15.0,
+    "total_interactions": 152900
+  }
+}

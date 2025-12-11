@@ -1,0 +1,86 @@
+data:
+  ratings_path: datasets/ratings.dat
+  users_path: datasets/users.dat
+  movies_path: datasets/movies.dat
+  max_seq_len: 50
+  train_ratio: 0.7
+  val_ratio: 0.15
+  min_interactions: 20
+  pad_movie_id: 0
+
+# Model configuration
+model:
+  # SASRec encoder
+  sasrec:
+    d_model: 64
+    nhead: 2
+    num_layers: 2
+    dim_feedforward: 256
+    dropout: 0.1
+
+  # Static feature encoder
+  static:
+    zipcode_embed_dim: 8
+
+  # IQL networks
+  iql:
+    hidden_dim: 256
+    num_hidden_layers: 2
+    gamma: 0.99
+    tau_expectile: 0.7
+    beta_awr: 3.0
+    clip_weight: 20.0
+    tau_target: 0.005
+
+# Training configuration
+training:
+  batch_size: 128
+  num_epochs: 50
+  learning_rate: 1.0e-4
+  weight_decay: 0.0
+  grad_clip_norm: 1.0
+  warmup_steps: 1000
+  device: auto  # auto, cuda, or cpu
+  num_workers: 4
+  pin_memory: true
+
+  # Checkpointing
+  checkpoint_dir: checkpoints/iql
+  save_every: 5
+  save_best: true
+
+  # Logging
+  log_interval: 100
+  tensorboard_dir: runs
+
+  # Validation
+  val_every: 1
+  early_stopping_patience: 10
+
+# BC policy pretraining (used to initialize IQL policy)
+bc_pretraining:
+  enabled: true
+  bc_checkpoint_path: checkpoints/bc/bc_policy_best.pt
+  freeze_encoder: true
+
+# Evaluation configuration
+evaluation:
+  nx0_clip_weight: 20.0
+  nx0_epsilon: 1.0e-8
+  top_k_values:
+    - 5
+    - 10
+    - 20
+  output_dir: results
+
+# Random seed for reproducibility
+seed: 42
+
+# Hydra configuration
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}
+
