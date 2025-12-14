@@ -20,14 +20,14 @@
 ```bash
 pip install -r requirements.txt
 
-# Train LinUCB (Replay on MovieLens-1M)
-python scripts/generate_ucb_replay_curves.py
-
 # Preprocess MovieLens-1M (ensure datasets/{ratings,users,movies}.dat exist)
 python scripts/preprocess_data.py --data_dir datasets --output_dir data/processed
 
 # (Optional) Train BC warm start
 python scripts/train_bc.py --data_dir data/processed --epochs 10
+
+# Train LinUCB (Replay on MovieLens-1M)
+python scripts/generate_ucb_replay_curves.py
 
 # Train IQL
 python scripts/train_iql.py --data_dir data/processed --num_epochs 50
