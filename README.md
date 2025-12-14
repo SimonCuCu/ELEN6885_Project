@@ -20,6 +20,9 @@
 ```bash
 pip install -r requirements.txt
 
+# Train LinUCB (Replay on MovieLens-1M)
+python scripts/generate_ucb_replay_curves.py
+
 # Preprocess MovieLens-1M (ensure datasets/{ratings,users,movies}.dat exist)
 python scripts/preprocess_data.py --data_dir datasets --output_dir data/processed
 
@@ -38,9 +41,6 @@ python scripts/evaluate_iql.py \
 # Train & evaluate CQL
 python scripts/train_cql.py --data_dir data/processed --num_epochs 50
 python scripts/evaluate_cql.py --data_dir data/processed --cql_checkpoint checkpoints/cql/cql_best.pt
-
-# LinUCB (Replay on MovieLens-1M)
-python scripts/generate_ucb_replay_curves.py
 ```
 
 ## Modeling Notes
